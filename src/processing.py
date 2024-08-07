@@ -1,25 +1,23 @@
-def filter_by_state(adsdad, state='EXECUTED'):
-    ghgh = []
-    for items in adsdad:
-        if state == items.get('state'):
-            ghgh.append(items)
-    return ghgh
+def filter_by_state(incoming_list, state="EXECUTED"):
+    """
+    Функция возвращающая новый список словарей, содержащий только те словари, у которых ключ
+    state соответствует указанному значению.
+    """
+    result = []
+    for items in incoming_list:
+        if state == items.get("state"):
+            result.append(items)
+    return result
 
 
-def sort_by_date(ab, ff=False):
+def sort_by_date(incoming_list, ascending=False):
+    """
+    Функция сортирующая список словарей по дате'
+    """
     sorted_list = []
-    for items in ab:
-        if ff == False:
-            sorted_list += sorted(ab, key=lambda x: x['date'], reverse=True)
+    for items in incoming_list:
+        if ascending == False:
+            sorted_list += sorted(incoming_list, key=lambda x: x["date"], reverse=True)
         else:
-            sorted_list += sorted(ab, key=lambda x: x['date'], reverse=False)
+            sorted_list += sorted(incoming_list, key=lambda x: x["date"], reverse=False)
         return sorted_list
-
-
-
-
-
-
-
-# print(filter_by_state([{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'}, {'id': 939719570, 'state': 'CANCELED', 'date': '2018-06-30T02:08:58.425572'}, {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'}, {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}]))
-print(sort_by_date([{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'}, {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}, {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'}, {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}]))
