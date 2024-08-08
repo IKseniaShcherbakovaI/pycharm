@@ -1,4 +1,4 @@
-def filter_by_state(incoming_list, state="EXECUTED"):
+def filter_by_state(incoming_list: list, state="EXECUTED") -> list | None:
     """
     Функция возвращающая новый список словарей, содержащий только те словари, у которых ключ
     state соответствует указанному значению.
@@ -10,7 +10,7 @@ def filter_by_state(incoming_list, state="EXECUTED"):
     return result
 
 
-def sort_by_date(incoming_list, ascending=False):
+def sort_by_date(incoming_list: list, ascending=False) -> list | None:
     """
     Функция сортирующая список словарей по дате'
     """
