@@ -13,6 +13,7 @@ def filter_by_currency(transactions: list, state: str) -> list:
 
 
 def transaction_descriptions(transactions):
+    '''Функция возвращающая описание по кажой операции'''
     if transactions == []:
         exit('Нет транзакций')
 
@@ -23,6 +24,7 @@ def transaction_descriptions(transactions):
 
 
 def card_number_generator(start= 1, stop= 99):
+    '''Функция генерирующая номер карт в заданном диапазоне'''
     for _ in range(start, stop + 1):
         card_number = str(_)
         while len(card_number) < 16:
