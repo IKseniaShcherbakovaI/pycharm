@@ -17,13 +17,8 @@ def mask_account_card(account_card: str) -> str | None:
         return f"{name}{get_mask_card_number(number)}"
 
 
-def get_date(date: str) -> str | None:
+def get_date(date: str) -> str:
     """Функция возвращающая дату"""
     result = date.replace("-", "")
     for date in result:
         return f"{result[6:8]}.{result[4:6]}.{result[0:4]}"
-
-
-print(get_date('2024-03-11T02:26:18.671407'))
-print(get_date('2023-12-12'))
-print(get_date('2020-11-10'))
