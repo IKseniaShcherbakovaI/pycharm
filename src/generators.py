@@ -3,16 +3,7 @@ from typing import Generator
 
 def filter_by_currency(transactions: list, state: str) -> Generator:
     """Функция выдающая список тразакций по определенной валюте"""
-    if transactions == []:
-        exit("Нет транзакций")
-
-    for i in transactions:
-        if i.get("operationAmount").get("currency").get("code") == state:
-            yield i
-
-    for i in transactions:
-        if state not in i.get("operationAmount").get("currency").get("code") or state == "":
-            exit("С данной валютой не было транзакций")
+    return filter(lambda x: x["operationAmount"]["currency"]["code"] == state, transactions)
 
 
 def transaction_descriptions(transactions: list) -> Generator:
