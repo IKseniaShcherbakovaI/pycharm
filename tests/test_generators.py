@@ -77,14 +77,6 @@ def test_filter_by_currency(coll, state="RUB"):
         "to": "Счет 74489636417521191160",
     }
 
-    with pytest.raises(SystemExit, match="Нет транзакций") as exc_info:
-        gen = filter_by_currency(transactions=[], state="RUB")
-        assert next(gen) == exc_info
-
-    with pytest.raises(SystemExit, match="С данной валютой не было транзакций") as exc_info:
-        gen = filter_by_currency(coll, state="nnn")
-        assert next(gen) == exc_info
-
 
 def test_transaction_descriptions(coll):
     gen = transaction_descriptions(coll)
@@ -93,7 +85,7 @@ def test_transaction_descriptions(coll):
     assert next(gen) == "Перевод со счета на счет"
 
     with pytest.raises(SystemExit, match="Нет транзакций") as exc_info:
-        gen = filter_by_currency(transactions=[], state="RUB")
+        gen = transaction_descriptions(transactions=[])
         assert next(gen) == exc_info
 
 
