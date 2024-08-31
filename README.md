@@ -91,6 +91,8 @@ logger.addHandler(file_handler)
 ```
 результат работы логера выглядит так: 
 
+
+
 ![img_3.png](img_3.png)
 
 
