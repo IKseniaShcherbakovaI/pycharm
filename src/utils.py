@@ -4,7 +4,7 @@ import os
 from json import JSONDecodeError
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-rel_file_path = os.path.join(current_dir, "..//logs//masks.log")
+rel_file_path = os.path.join(current_dir, "..//logs//utils.log")
 abs_file_path = os.path.abspath(rel_file_path)
 logger = logging.getLogger("utils")
 logger.setLevel(logging.INFO)
