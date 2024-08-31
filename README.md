@@ -79,6 +79,25 @@ for card_number in card_number_generator(1, 5):
 ```
 ### №2 masks
 
+В модуль добавлен логер который записывает логи в файл **"masks.log"**
+ниже приведен код логера
+```
+logger = logging.getLogger("masks")
+logger.setLevel(logging.INFO)
+file_handler = logging.FileHandler(abs_file_path, "w", encoding="utf-8")
+file_formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s: %(message)s")
+file_handler.setFormatter(file_formatter)
+logger.addHandler(file_handler)
+```
+результат работы логера выглядит так: 
+
+
+```commandline
+2024-08-31 15:53:11,674 - masks - INFO: Маскируем номер счета
+2024-08-31 15:53:11,676 - masks - INFO: Маскируем номер счета
+```
+
+
 1) **get_mask_card_number**
 
 Функция маскирующая номер карты
@@ -221,6 +240,34 @@ result: 4
 
 ![img_1.png](img_1.png)
 
+
+### №6 utils
+
+содержит в себе функцию принимающую аргументом путь к файлу с словарями и  возвращающающую список словарей с 
+данными о финансовых транзакциях
+
+В модуль добавлен логер который записывает логи в файл **"utils.log"**
+ниже приведен код логера
+```
+logger = logging.getLogger("utils")
+logger.setLevel(logging.INFO)
+file_handler = logging.FileHandler(abs_file_path, "w", encoding="utf-8")
+file_formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s: %(message)s")
+file_handler.setFormatter(file_formatter)
+logger.addHandler(file_handler)
+
+```
+результат работы логера выглядит так: 
+
+```
+2024-08-31 15:53:11,667 - utils - INFO: Ищем файл по указанному пути 
+2024-08-31 15:53:11,668 - utils - INFO: Ищем файл по указанному пути C:\Users\Ксения\Desktop\homework\data\operations.jso2024-08-31 15:53:11,672 - masks - INFO: Маскируем номер карты
+```
+
+### №7 external_api
+
+содержит в себе функцию конфертации валюты **transaction_amount**, принимамает на вход транзакции и с помощью строннего API 
+конвертирует доллар или евро в рубли. 
 
 
 ## Исползование:
