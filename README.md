@@ -92,8 +92,10 @@ logger.addHandler(file_handler)
 результат работы логера выглядит так: 
 
 
-
-![img_3.png](img_3.png)
+```commandline
+2024-08-31 15:53:11,674 - masks - INFO: Маскируем номер счета
+2024-08-31 15:53:11,676 - masks - INFO: Маскируем номер счета
+```
 
 
 1) **get_mask_card_number**
