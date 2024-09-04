@@ -7,7 +7,7 @@ def transaction_csv(path_csv):
         return []
     try:
         df = pd.read_csv(path_csv, delimiter=';')
-        return list(df.to_dict(orient="records"))
+        return df.to_dict(orient="records")
     except Exception:
         return []
 
@@ -18,7 +18,7 @@ def transaction_excel(path_excel):
         return []
     try:
         df = pd.read_excel(path_excel)
-        return list(df.to_dict(orient="records"))
+        return df.to_dict(orient="records")
     except Exception:
         return []
 
