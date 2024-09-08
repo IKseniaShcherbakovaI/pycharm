@@ -8,40 +8,44 @@ from src.widget import get_date, mask_account_card
 
 
 def main():
-    '''
+    """
     Функция которая отвечает за основную логику проекта с пользователем и связывает функциональности между собой.
-    '''
+    """
     print("Привет! Добро пожаловать в программу работы с банковскими транзакциями.")
-    print(
-        """Выберите необходимый пункт меню:
-    1. Получить информацию о транзакциях из JSON-файла
-    2. Получить информацию о транзакциях из CSV-файла
-    3. Получить информацию о транзакциях из XLSX-файла""",
-    )
+    work = True
+    while work:
+        print(
+            """Выберите необходимый пункт меню:
+        1. Получить информацию о транзакциях из JSON-файла
+        2. Получить информацию о транзакциях из CSV-файла
+        3. Получить информацию о транзакциях из XLSX-файла""",
+        )
 
-    input_item = input("-> ")
+        input_item = input("-> ")
 
-    if input_item == "1":
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        rel_file_path = os.path.join(current_dir, "..//data//operations.json")
-        abs_file_path = os.path.abspath(rel_file_path)
-        result = transaction(abs_file_path)
-        print("Для обработки выбран JSON-файл.")
-
-    elif input_item == "2":
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        rel_file_path = os.path.join(current_dir, "..//data//transactions.csv")
-        abs_file_path = os.path.abspath(rel_file_path)
-        result = transaction_csv(abs_file_path)
-        print("Для обработки выбран csv-файл.")
-    elif input_item == "3":
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        rel_file_path = os.path.join(current_dir, "..//data//transactions_excel.xlsx")
-        abs_file_path = os.path.abspath(rel_file_path)
-        result = transaction_excel(abs_file_path)
-        print("Для обработки выбран excel-файл.")
-    else:
-        return "Вы выбрали вариант которого нет"
+        if input_item == "1":
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            rel_file_path = os.path.join(current_dir, "..//data//operations.json")
+            abs_file_path = os.path.abspath(rel_file_path)
+            result = transaction(abs_file_path)
+            print("Для обработки выбран JSON-файл.")
+            work = False
+        elif input_item == "2":
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            rel_file_path = os.path.join(current_dir, "..//data//transactions.csv")
+            abs_file_path = os.path.abspath(rel_file_path)
+            result = transaction_csv(abs_file_path)
+            print("Для обработки выбран csv-файл.")
+            work = False
+        elif input_item == "3":
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            rel_file_path = os.path.join(current_dir, "..//data//transactions_excel.xlsx")
+            abs_file_path = os.path.abspath(rel_file_path)
+            result = transaction_excel(abs_file_path)
+            print("Для обработки выбран excel-файл.")
+            work = False
+        else:
+            print("Вы выбрали вариант которого нет")
 
     work = True
     while work:
@@ -58,41 +62,59 @@ def main():
             print(f'Статус операции "{status}" недоступен.')
     print(f'Операции отфильтрованы по статусу "{status}"')
 
-    print("Отсортировать операции по дате? Да/Нет")
-    value_input = input("-> ").lower()
-    if value_input == "да":
-        print("Отсортировать по возрастанию или по убыванию?")
-        method_input = input("-> ")
-        if method_input == "по убыванию":
-            result_3 = sort_by_date(result_2)
-        elif method_input == "по возрастанию":
-            result_3 = sort_by_date(result_2, ascending=True)
-    else:
-        result_3 = result_2
+    work = True
+    while work:
+        print("Отсортировать операции по дате? Да/Нет")
+        value_input = input("-> ").lower()
+        if value_input == "да":
+            job = True
+            while job:
+                print("Отсортировать по возрастанию или по убыванию?")
+                method_input = input("-> ")
+                if method_input == "по убыванию":
+                    result_3 = sort_by_date(result_2)
+                    job = False
+                    work = False
+                elif method_input == "по возрастанию":
+                    result_3 = sort_by_date(result_2, ascending=True)
+                    job = False
+                    work = False
+        elif value_input == "нет":
+            result_3 = result_2
+            work = False
 
-    print("Выводить только рублевые тразакции? Да/Нет")
-    currency_input = input("-> ").lower()
-    result_4 = []
-    if currency_input == "да":
-        try:
-            for trans in result_3:
-                if trans["currency_code"] == "RUB":
-                    result_4.append(trans)
-        except Exception:
-            for trans in result_3:
-                if trans["operationAmount"]["currency"]["code"] == "RUB":
-                    result_4.append(trans)
-    else:
-        result_4 = result_3
+    work = True
+    while work:
+        print("Выводить только рублевые тразакции? Да/Нет")
+        currency_input = input("-> ").lower()
+        result_4 = []
+        if currency_input == "да":
+            try:
+                for trans in result_3:
+                    if trans["currency_code"] == "RUB":
+                        result_4.append(trans)
+                        work = False
+            except Exception:
+                for trans in result_3:
+                    if trans["operationAmount"]["currency"]["code"] == "RUB":
+                        result_4.append(trans)
+                        work = False
+        elif currency_input == "нет":
+            result_4 = result_3
+            work = False
 
-    print("Отфильтровать список транзакций по определенному слову в описании? Да/Нет")
-    reply_input = input("-> ").lower()
-    if reply_input == "да":
-        print("Введите слово: ")
-        word_input = input("-> ")
-        result_5 = search_string(result_4, word_input)
-    else:
-        result_5 = result_4
+    work = True
+    while work:
+        print("Отфильтровать список транзакций по определенному слову в описании? Да/Нет")
+        reply_input = input("-> ").lower()
+        if reply_input == "да":
+            print("Введите слово: ")
+            word_input = input("-> ")
+            result_5 = search_string(result_4, word_input)
+            work = False
+        elif reply_input == "нет":
+            result_5 = result_4
+            work = False
 
     print("Распечатываю итоговый список транзакций...\n")
 
@@ -102,13 +124,22 @@ def main():
     else:
         our_result = ""
         for operations in result_5:
-            currency = operations["currency_name"] or operations["operationAmount"]["currency"]["name"]
-            date = get_date(operations["date"])
-            description = operations["description"]
+            try:
+                currency = operations["operationAmount"]["currency"]["name"]
+                date = get_date(operations["date"])
+                description = operations["description"]
+            except Exception:
+                currency = operations["currency_name"]
+                date = get_date(operations["date"])
+                description = operations["description"]
             try:
                 account = mask_account_card(operations["from"]) + " -> " + mask_account_card(operations["to"])
             except Exception:
                 account = mask_account_card(operations["to"])
-            sum_ = operations["amount"] or operations["operationAmount"]["amount"]
-            our_result += f"{date} {description}\n{account}\nСумма {sum_} {currency}\n\n"
+            try:
+                sum_ = operations["operationAmount"]["amount"]
+                our_result += f"{date} {description}\n{account}\nСумма {sum_} {currency}\n\n"
+            except Exception:
+                sum_ = operations["amount"]
+                our_result += f"{date} {description}\n{account}\nСумма {sum_} {currency}\n\n"
         return our_result
